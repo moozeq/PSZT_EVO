@@ -10,7 +10,7 @@ public class Evolution {
     Indiv bestIndiv;
     double min;
     double max;
-    double mi;
+    int mi;
 
     /*
     mi - population size
@@ -29,14 +29,14 @@ public class Evolution {
     /*
     Solve by (mi + lambda) algorithm, c = length between local max-s
      */
-    public void solveMPL(double mi, double lambda, double c) throws Exception {
+    public void solveMPL(int mi, int lambda, double c) throws Exception {
         if (this.mi != mi)
             throw new Exception();
     }
     /*
     Solve by evo programming algorithm
      */
-    public void solveEP(double mi) throws Exception {
+    public void solveEP(int mi) throws Exception {
         if (this.mi != mi)
             throw new Exception();
     }
