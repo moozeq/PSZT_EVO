@@ -57,7 +57,7 @@ class Solver {
                 Indiv child = new Indiv(population.get(i));
                 mPopulation.add(child);
             }
-            population = miBests(population, mPopulation);
+            population = elitaryStrategy(population, mPopulation);
         }
         return bestIndiv;
     }
@@ -82,6 +82,41 @@ class Solver {
 
         if (bestDuringGen > maxGenSameBestIndiv) //same best individual for max generations
             stop = true;
+        return newPopulation;
+    }
+
+    private static ArrayList<Indiv> elitaryStrategy(ArrayList<Indiv> population, ArrayList<Indiv> rPopulation) {
+        int mi = population.size();
+        double bestIndivPerc = 0.2;
+        int bestIndivNum = (int) (bestIndivPerc * mi);
+        ArrayList<Indiv> newPopulation = new ArrayList(mi);
+        population.addAll(rPopulation);
+        population.sort(Comparator.comparing(Indiv::getFit));
+
+        //get bestIndivNum of best indivs
+        for (int i = 0; i < bestIndivNum; i++) {
+            newPopulation.add(population.get(population.size() - 1));
+            population.remove(population.size() - 1);
+        }
+
+        //the rest is get randomly
+        Random random = new Random();
+        for (int i = 0; i < mi - bestIndivNum; i++) {
+            int index = random.nextInt(population.size() - 1);
+            newPopulation.add(population.get(index));
+            population.remove(index);
+        }
+
+        if (newPopulation.get(0).getFit() > bestFit) {
+            bestDuringGen = 0;
+            bestIndiv = newPopulation.get(0);
+        }
+        else
+            ++bestDuringGen;
+
+        if (bestDuringGen > maxGenSameBestIndiv) //same best individual for max generations
+            stop = true;
+
         return newPopulation;
     }
 }
