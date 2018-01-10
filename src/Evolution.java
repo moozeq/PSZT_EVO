@@ -79,4 +79,34 @@ public class Evolution {
         bestIndiv = newPopulation.get(0);
         return newPopulation;
     }
+
+    public ArrayList<Indiv> elitaryStrategy((ArrayList<Indiv> population, ArrayList<Indiv> rPopulation) {
+        double bestIndivPerc = 0.1;
+        int bestIndivNum = (int) (bestIndivPerc * mi);
+        ArrayList<Indiv> newPopulation = new ArrayList(mi);
+        population.addAll(rPopulation);
+        population.sort(Comparator.comparing(Indiv::getFit));
+
+        //get bestIndivNum of best indivs
+        for (int i = 0; i < bestIndivNum; i++) {
+            newPopulation.add(population.get(population.size() - 1));
+            population.remove(population.size() - 1);
+        }
+
+        //the rest is get randomly
+        Random random = new Random();
+        for (int i = 0; i < mi - bestIndivNum; i++) {
+            int index = random.nextInt(population.size() - 1);
+            newPopulation.add(population.get(index));
+            population.remove(index);
+        }
+        return newPopulation;
+    }
+
+    public ArrayList<Indiv> rankingStrategy((ArrayList<Indiv> population, ArrayList<Indiv> rPopulation){
+        population.addAll(rPopulation);
+        population.sort(Comparator.comparing(Indiv::getFit));
+
+
+    }
 }
