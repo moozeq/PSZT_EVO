@@ -6,12 +6,23 @@ import java.util.ArrayList;
 class Population {
     public ArrayList<Indiv> population;
     public Indiv bestIndiv;
-    private double min;
-    private double max;
-    private int mi;
-    private int lambda;
-    private int n; //dimensions
+    public double min;
+    public double max;
+    public int mi;
+    public int lambda;
+    public int n; //dimensions
 
+    Population() {}
+    Population(Population pop) {
+        population = new ArrayList<>(pop.population.size());
+        for (int i = 0; i < pop.population.size(); ++i)
+            population.add(pop.population.get(i));
+        min = pop.min;
+        max = pop.max;
+        mi = pop.mi;
+        lambda = pop.lambda;
+        n = pop.n;
+    }
     /*
     mi - population size
     n - dimensions

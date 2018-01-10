@@ -30,6 +30,19 @@ public class Indiv {
         }
         fit = fitFun();
     }
+    Indiv(Indiv parent) {
+        Random random = new Random();
+        int dim = parent.getDim();
+        double t = 1 / Math.sqrt(2*dim);
+        double t1 = 1 / Math.sqrt(2*Math.sqrt(dim));
+        for (int i = 0; i < dim; ++i) {
+            double sigma = parent.getSigma(i) * ( 1 + t1 * random.nextGaussian()) * (1 + t * random.nextGaussian());
+            double x = parent.getX(i) + sigma * random.nextGaussian();
+            sigmas.add(sigma);
+            coords.add(x);
+        }
+        fit = fitFun();
+    }
     /*
     Function to get fitting value
      */

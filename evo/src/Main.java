@@ -5,7 +5,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Population evo = new Population();
+        Population evoMPL = new Population();
+
         int mi = 20;
         int lambda = 80;
         int n = 100;
@@ -14,19 +15,30 @@ public class Main extends Application {
         double min = -20.0;
         double max = 20.0;
         double sigmaRange = 0.5;
-        double c = 5.5;
+        double c = 0.5;
+
         while (true) {
-            evo.generate4MPL(mi, lambda, n, min, max, sigmaRange);
+            evoMPL.generate4MPL(mi, lambda, n, min, max, sigmaRange);
+            Population evoEP = new Population(evoMPL);
 
             long startTime = System.currentTimeMillis();
-            evo.bestIndiv = Solver.solveMPL(evo.population, mi, lambda, c, maxRounds, maxGen);
+            evoMPL.bestIndiv = Solver.solveMPL(evoMPL.population, mi, lambda, c, maxRounds, maxGen);
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
 
-            System.out.println("Total time: " + totalTime +
-                    "\nBest Indiv: " + evo.bestIndiv.getFit());
-            //c += 1.0;
+            System.out.println("Evo MPL\nTotal time: " + totalTime +
+                    "\nBest Indiv: " + evoMPL.bestIndiv.getFit());
+
+
+            startTime = System.currentTimeMillis();
+            evoEP.bestIndiv = Solver.solveEP(evoEP.population, mi, maxRounds, maxGen);
+            endTime = System.currentTimeMillis();
+            totalTime = endTime - startTime;
+
+            System.out.println("Evo EP\nTotal time: " + totalTime +
+                    "\nBest Indiv: " + evoEP.bestIndiv.getFit());
         }
+
     }
 
 

@@ -7,10 +7,10 @@ import java.util.Random;
  */
 class Solver {
     private static Indiv bestIndiv;
-    private static double bestFit;
-    private static int bestDuringGen;
+    private static double bestFit; //best fitting
+    private static int bestDuringGen; //how many generation bestIndiv was best
     private static int maxGenSameBestIndiv; //max generation w/ same best individual
-    private static boolean stop;
+    private static boolean stop; //=true when bestIndiv exceed maxGenSameBestIndiv
     /*
     Solve by (mi + lambda) algorithm, c = length between local max-s
      */
@@ -44,7 +44,22 @@ class Solver {
     /*
     Solve by evo programming algorithm
      */
-    public void solveEP(int mi) {
+    public static Indiv solveEP(ArrayList<Indiv> population, int mi, int maxRounds, int maxGenSameBest) {
+        bestIndiv = population.get(0);
+        bestFit = bestIndiv.getFit();
+        bestDuringGen = 0;
+        maxGenSameBestIndiv = maxGenSameBest;
+
+        int generation;
+        for (generation = 0, stop = false; generation < maxRounds && !stop; ++generation) { //stop when max rounds or max during max gen best's same indiv
+            ArrayList<Indiv> mPopulation = new ArrayList(mi);
+            for (int i = 0; i < mi; ++i) {
+                Indiv child = new Indiv(population.get(i));
+                mPopulation.add(child);
+            }
+            population = miBests(population, mPopulation);
+        }
+        return bestIndiv;
     }
     /*
     Choose who should be in next population
