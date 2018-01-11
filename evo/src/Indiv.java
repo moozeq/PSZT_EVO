@@ -20,10 +20,11 @@ public class Indiv {
         int dim = parentM.getDim();
         double t = 1 / Math.sqrt(2*dim);
         double t1 = 1 / Math.sqrt(2*Math.sqrt(dim));
+        double ksi = random.nextGaussian();
         for (int i = 0; i < dim; ++i) {
             double embryoX = (parentM.getX(i) + parentF.getX(i)) / 2.0;
             double embryoSig = (parentM.getSigma(i) + parentF.getSigma(i)) / 2.0;
-            double sigma = embryoSig * ( 1 + t1 * random.nextGaussian()) * (1 + t * random.nextGaussian());
+            double sigma = embryoSig * ( 1 + t1 * ksi) * (1 + t * random.nextGaussian());
             double x = embryoX + sigma * random.nextGaussian();
             sigmas.add(sigma);
             coords.add(x);
@@ -35,8 +36,9 @@ public class Indiv {
         int dim = parent.getDim();
         double t = 1 / Math.sqrt(2*dim);
         double t1 = 1 / Math.sqrt(2*Math.sqrt(dim));
+        double ksi = random.nextGaussian();
         for (int i = 0; i < dim; ++i) {
-            double sigma = parent.getSigma(i) * ( 1 + t1 * random.nextGaussian()) * (1 + t * random.nextGaussian());
+            double sigma = parent.getSigma(i) * ( 1 + t1 * ksi) * (1 + t * random.nextGaussian());
             double x = parent.getX(i) + sigma * random.nextGaussian();
             sigmas.add(sigma);
             coords.add(x);
