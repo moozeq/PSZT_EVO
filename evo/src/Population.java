@@ -15,8 +15,7 @@ class Population {
     Population() {}
     Population(Population pop) {
         population = new ArrayList<>(pop.population.size());
-        for (int i = 0; i < pop.population.size(); ++i)
-            population.add(pop.population.get(i));
+        population.addAll(pop.population);
         min = pop.min;
         max = pop.max;
         mi = pop.mi;
@@ -30,6 +29,7 @@ class Population {
     max - max x value
      */
     public void generate4MPL(int mi, int lambda, int n, double min, double max, double sigmaRange) {
+
         this.min = min;
         this.max = max;
         this.mi = mi;

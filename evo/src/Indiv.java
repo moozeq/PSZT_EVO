@@ -57,17 +57,18 @@ public class Indiv {
             fitE += x*x / (double)(i+1);
         }
         return fitCos - 0.01*fitE;
+        //return (fitCos - 0.01*fitE + 10) * 2;
     }
-    private double getX(int index) {
+    public double getX(int index) {
         return coords.get(index);
     }
-    private double getSigma(int index) {
+    public double getSigma(int index) {
         return sigmas.get(index);
     }
     public double getFit() {
         return fit;
     }
-    private int getDim() {
+    public int getDim() {
         return coords.size();
     }
     public String toString() {

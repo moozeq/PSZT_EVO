@@ -11,8 +11,8 @@ class Solver {
     /*
     Solve by (mi + lambda) algorithm, c = length between local max-s
      */
-    public static Indiv solveMPL(ArrayList<Indiv> population, int mi, int lambda, double c, int maxRounds, double minFit) {
-        prevBestIndiv = bestIndiv = population.get(0);
+    public static Indiv solveMPL(Population pop, int mi, int lambda, double c, int maxRounds, double minFit) {
+        prevBestIndiv = bestIndiv = pop.population.get(0);
 
         int generation;
         for (generation = 0; generation < maxRounds && bestIndiv.getFit() < minFit; ++generation) {
@@ -20,8 +20,8 @@ class Solver {
             ArrayList<Indiv> rPopulation = new ArrayList(lambda);
             Random random = new Random();
             for (int i = 0; i < lambda; ++i)
-                tPopulation.add(population.get(random.nextInt(mi)));
-            for (int i = 0; i < lambda / 2; ++i) {
+                tPopulation.add(pop.population.get(random.nextInt(mi)));
+            for (int i = 0; i < lambda; ++i) {
                 Indiv parentM = tPopulation.get(random.nextInt(lambda));
                 Indiv parentF = tPopulation.get(random.nextInt(lambda));
                 if (Indiv.chanceToReproduce(parentM, parentF, c) < random.nextDouble()) {
@@ -31,8 +31,8 @@ class Solver {
                 Indiv child = new Indiv(parentM, parentF);
                 rPopulation.add(child);
             }
-            population = ranking(population, rPopulation);
-            population.set(mi - 1, prevBestIndiv); //elitism
+            pop.population = ranking(pop.population, rPopulation);
+            pop.population.set(mi - 1, prevBestIndiv); //elitism
             prevBestIndiv = bestIndiv;
         }
         return bestIndiv;
@@ -49,7 +49,7 @@ class Solver {
             population
                     .parallelStream()
                     .forEach(e-> mPopulation.add(new Indiv(e)));
-            population = ranking(population, mPopulation);
+            population = miBests(population, mPopulation);
             population.set(mi - 1, prevBestIndiv); //elitism
             prevBestIndiv = bestIndiv;
         }
