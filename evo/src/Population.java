@@ -6,53 +6,21 @@ import java.util.ArrayList;
 class Population {
     public ArrayList<Indiv> population;
     public Indiv bestIndiv;
-    public double min;
-    public double max;
-    public int mi;
-    public int lambda;
-    public int n; //dimensions
 
-    Population() {}
-    Population(Population pop) {
-        population = new ArrayList<>(pop.population.size());
-        population.addAll(pop.population);
-        min = pop.min;
-        max = pop.max;
-        mi = pop.mi;
-        lambda = pop.lambda;
-        n = pop.n;
-    }
-    /*
-    mi - population size
-    n - dimensions
-    min - min x value
-    max - max x value
-     */
-    public void generate4MPL(int mi, int lambda, int n, double min, double max, double sigmaRange) {
-
-        this.min = min;
-        this.max = max;
-        this.mi = mi;
-        this.lambda = lambda;
-        this.n = n;
-        population = new ArrayList(mi);
-        for (int i = 0; i < mi; ++i)
-            population.add(new Indiv(n, min, max, sigmaRange));
-    }
-    /*
-        mi - population size
-        n - dimensions
-        min - min x value
-        max - max x value
-         */
-    public void generate4EP(int mi, int n, double min, double max, double sigmaRange) {
-        this.min = min;
-        this.max = max;
-        this.mi = mi;
-        this.n = n;
-        population = new ArrayList(mi);
-        for (int i = 0; i < mi; ++i)
-            population.add(new Indiv(n, min, max, sigmaRange));
+    Population(int mi, int n, double min, double max, double sigmaRange) {
+        population = new ArrayList<>(mi);
+        for (int i = 0; i < mi; ++i) {
+            Indiv indiv = new Indiv(n, min, max, sigmaRange);
+            if (i == 0)
+                bestIndiv = indiv;
+            if (indiv.getFit() > bestIndiv.getFit())
+                bestIndiv = indiv;
+            population.add(indiv);
+        }
     }
 
+    Population(Population population) {
+        this.population = new ArrayList<>(population.population);
+        this.bestIndiv = new Indiv(population.bestIndiv, false);
+    }
 }

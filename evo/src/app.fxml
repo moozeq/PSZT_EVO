@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="414.0" prefWidth="781.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller">
+  <ScatterChart fx:id="chart" layoutY="7.0">
+    <xAxis>
+      <NumberAxis autoRanging="false" lowerBound="-20.0" side="BOTTOM" tickLabelGap="1.0" tickUnit="2.0"
+                  upperBound="20.0"/>
+    </xAxis>
+    <yAxis>
+      <NumberAxis autoRanging="false" lowerBound="-20.0" side="LEFT" tickLabelGap="1.0" tickUnit="2.0"
+                  upperBound="20.0"/>
+    </yAxis>
+  </ScatterChart>
+  <TextField fx:id="miField" layoutX="500.0" layoutY="22.0" prefWidth="161.0" promptText="μ"/>
+  <TextField fx:id="nField" layoutX="500.0" layoutY="50.0" prefWidth="161.0" promptText="n"/>
+  <TextField fx:id="sigmaField" layoutX="500.0" layoutY="77.0" prefWidth="161.0" promptText="σ range"/>
+  <Button layoutX="500.0" layoutY="106.0" mnemonicParsing="false" onAction="#generateData" text="Generate new data"/>
+  <TextField fx:id="lambdaField" layoutX="500.0" layoutY="138.0" prefWidth="161.0" promptText="λ"/>
+  <TextField fx:id="cField" layoutX="500.0" layoutY="163.0" prefWidth="161.0" promptText="c"/>
+  <TextField fx:id="maxRoundsField" layoutX="500.0" layoutY="189.0" prefWidth="161.0" promptText="max rounds"/>
+  <TextField fx:id="minFitnessField" layoutX="500.0" layoutY="215.0" prefWidth="161.0" promptText="min fitness"/>
+  <Button layoutX="500.0" layoutY="244.0" mnemonicParsing="false" onAction="#solveMPL" text="Solve MPL"/>
+  <Button layoutX="581.0" layoutY="244.0" mnemonicParsing="false" onAction="#solveEP" text="Solve EP"/>
+  <TextField fx:id="x1Field" layoutX="500.0" layoutY="356.0" prefWidth="65.0" promptText="x1" text="0"/>
+  <TextField fx:id="x2Field" layoutX="500.0" layoutY="381.0" prefWidth="65.0" promptText="x2" text="1"/>
+  <Button layoutX="593.0" layoutY="371.0" mnemonicParsing="false" onAction="#showChart"
+          text="Show in different dimensions"/>
+  <TextArea fx:id="textArea" editable="false" layoutX="500.0" layoutY="279.0" prefHeight="70.0" prefWidth="267.0"
+            wrapText="true"/>
+  <Label fx:id="dataGenerated" layoutX="658.0" layoutY="108.0" text="New data generated" textFill="#41cc00"
+         visible="false"/>
+  <Label layoutX="671.0" layoutY="25.0" text="μ"/>
+  <Label layoutX="671.0" layoutY="53.0" text="n"/>
+  <Label layoutX="671.0" layoutY="80.0" text="σ range"/>
+  <Label layoutX="671.0" layoutY="141.0" text="λ"/>
+  <Label layoutX="672.0" layoutY="166.0" text="c"/>
+  <Label layoutX="671.0" layoutY="192.0" text="max rounds"/>
+  <Label layoutX="671.0" layoutY="218.0" text="min fitness"/>
+  <Label layoutX="569.0" layoutY="359.0" text="x1"/>
+  <Label layoutX="569.0" layoutY="384.0" text="x2"/>
+</AnchorPane>

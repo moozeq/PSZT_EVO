@@ -7,7 +7,7 @@ import java.util.Random;
 public class Indiv {
     private ArrayList<Double> coords = new ArrayList<>();
     private ArrayList<Double> sigmas = new ArrayList<>();
-    private double fit;
+    private final double fit;
 
     Indiv(int n, double min, double max, double sigmaRange) {
         Random random = new Random();
@@ -31,19 +31,27 @@ public class Indiv {
         }
         fit = fitFun();
     }
-    Indiv(Indiv parent) {
-        Random random = new Random();
-        int dim = parent.getDim();
-        double t = 1 / Math.sqrt(2*dim);
-        double t1 = 1 / Math.sqrt(2*Math.sqrt(dim));
-        double ksi = random.nextGaussian();
-        for (int i = 0; i < dim; ++i) {
-            double sigma = parent.getSigma(i) * ( 1 + t1 * ksi) * (1 + t * random.nextGaussian());
-            double x = parent.getX(i) + sigma * random.nextGaussian();
-            sigmas.add(sigma);
-            coords.add(x);
+
+    Indiv(Indiv indiv, boolean isParent) {
+        if (!isParent) {
+            coords = new ArrayList<>(indiv.coords);
+            sigmas = new ArrayList<>(indiv.sigmas);
+            fit = indiv.getFit();
         }
-        fit = fitFun();
+        else {
+            Random random = new Random();
+            int dim = indiv.getDim();
+            double t = 1 / Math.sqrt(2*dim);
+            double t1 = 1 / Math.sqrt(2*Math.sqrt(dim));
+            double ksi = random.nextGaussian();
+            for (int i = 0; i < dim; ++i) {
+                double sigma = indiv.getSigma(i) * ( 1 + t1 * ksi) * (1 + t * random.nextGaussian());
+                double x = indiv.getX(i) + sigma * random.nextGaussian();
+                sigmas.add(sigma);
+                coords.add(x);
+            }
+            fit = fitFun();
+        }
     }
     /*
     Function to get fitting value

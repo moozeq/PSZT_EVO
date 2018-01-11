@@ -1,0 +1,112 @@
+import javafx.animation.PauseTransition;
+import javafx.fxml.FXML;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.util.Duration;
+
+/**
+ * Created by Ted on 11.01.2018.
+ */
+public class Controller {
+    @FXML
+    private
+    ScatterChart chart;
+
+    @FXML
+    private
+    TextField miField;
+    @FXML
+    private
+    TextField nField;
+    @FXML
+    private
+    TextField sigmaField;
+    @FXML
+    private
+    TextField lambdaField;
+    @FXML
+    private
+    TextField cField;
+    @FXML
+    private
+    TextField maxRoundsField;
+    @FXML
+    private
+    TextField minFitnessField;
+    @FXML
+    private
+    TextField x1Field;
+    @FXML
+    private
+    TextField x2Field;
+    @FXML
+    private
+    TextArea textArea;
+    @FXML
+    private
+    Label dataGenerated;
+
+    private Population population;
+    private Population sPopulation;
+    private final double min = -20.0;
+    private final double max = 20.0;
+
+    public void generateData() {
+        int mi = Integer.parseInt(miField.getText());
+        int n = Integer.parseInt(nField.getText());
+        double sigmaRange = Double.parseDouble(sigmaField.getText());
+        sPopulation = population = new Population(mi, n, min, max, sigmaRange);
+        showChart();
+
+        dataGenerated.setVisible(true);
+        PauseTransition visiblePause = new PauseTransition(Duration.seconds(1));
+        visiblePause.setOnFinished(event -> dataGenerated.setVisible(false));
+        visiblePause.play();
+    }
+
+    public void solveMPL() {
+        int lambda = Integer.parseInt(lambdaField.getText());
+        double c = Double.parseDouble(cField.getText());
+        int maxRounds = Integer.parseInt(maxRoundsField.getText());
+        double minFitness = Double.parseDouble(minFitnessField.getText());
+        long startTime = System.currentTimeMillis();
+        sPopulation = Solver.solveMPL(population, lambda, c, maxRounds, minFitness);
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        showText(totalTime, 0);
+        showChart();
+    }
+
+    public void solveEP() {
+        int maxRounds = Integer.parseInt(maxRoundsField.getText());
+        double minFitness = Double.parseDouble(minFitnessField.getText());
+        long startTime = System.currentTimeMillis();
+        sPopulation = Solver.solveEP(population, maxRounds, minFitness);
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        showText(totalTime, 1);
+        showChart();
+    }
+
+    private void showText(long totalTime, int type) {
+        if (type == 0)
+            textArea.setText("MPL time: " +  totalTime + "\nFitness: " + sPopulation.bestIndiv.getFit());
+        else
+            textArea.setText("EP time: " +  totalTime + "\nFitness: " + sPopulation.bestIndiv.getFit());
+    }
+
+    public void showChart() {
+        if (chart.getData().size() > 0)
+            chart.getData().clear();
+        int x1 = Integer.parseInt(x1Field.getText());
+        int x2 = Integer.parseInt(x2Field.getText());
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Individual");
+        for (Indiv aPopulation : sPopulation.population)
+            series.getData().add(new XYChart.Data(aPopulation.getX(x1), aPopulation.getX(x2)));
+        chart.getData().add(series);
+    }
+}
