@@ -9,6 +9,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("app.css");
         primaryStage.setTitle("Evolutionary algorithms");
         primaryStage.setScene(scene);
         primaryStage.show();

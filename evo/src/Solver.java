@@ -6,6 +6,7 @@ import java.util.Random;
  * Created by Ted on 09.01.2018.
  */
 class Solver {
+    public static int generation = 0;
     private static ArrayList<Indiv> population;
     private static Indiv bestIndiv;
     private static Indiv prevBestIndiv;
@@ -17,7 +18,6 @@ class Solver {
         population = sPopulation.population;
         prevBestIndiv = bestIndiv = sPopulation.bestIndiv;
         int mi = population.size();
-        int generation;
 
         for (generation = 0; generation < maxRounds && bestIndiv.getFit() < minFit; ++generation) {
             ArrayList<Indiv> tPopulation = new ArrayList(lambda);
@@ -51,7 +51,7 @@ class Solver {
         population = sPopulation.population;
         prevBestIndiv = bestIndiv = sPopulation.bestIndiv;
         int mi = population.size();
-        int generation;
+
         for (generation = 0; generation < maxRounds && bestIndiv.getFit() < minFit; ++generation) {
             ArrayList<Indiv> mPopulation = new ArrayList(mi);
             population

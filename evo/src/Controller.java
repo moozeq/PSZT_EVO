@@ -59,6 +59,8 @@ public class Controller {
         int n = Integer.parseInt(nField.getText());
         double sigmaRange = Double.parseDouble(sigmaField.getText());
         sPopulation = population = new Population(mi, n, min, max, sigmaRange);
+        x1Field.setText("0");
+        x2Field.setText("1");
         showChart();
 
         dataGenerated.setVisible(true);
@@ -93,9 +95,9 @@ public class Controller {
 
     private void showText(long totalTime, int type) {
         if (type == 0)
-            textArea.setText("MPL time: " +  totalTime + "\nFitness: " + sPopulation.bestIndiv.getFit());
+            textArea.setText("MPL time: " +  totalTime + "\nGenerations: " + Solver.generation +"\nFitness: " + sPopulation.bestIndiv.getFit());
         else
-            textArea.setText("EP time: " +  totalTime + "\nFitness: " + sPopulation.bestIndiv.getFit());
+            textArea.setText("EP time: " +  totalTime + "\nGenerations: " + Solver.generation + "\nFitness: " + sPopulation.bestIndiv.getFit());
     }
 
     public void showChart() {
