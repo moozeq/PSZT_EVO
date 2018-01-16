@@ -102,7 +102,7 @@ public class Controller {
         showFitChart();
     }
 
-    private void showText(long totalTime, int type) {
+    public void showText(long totalTime, int type) {
         if (type == 0)
             textArea.setText("MPL time: " +  totalTime + "\nGenerations: " + Solver.generation +"\nFitness: " + sPopulation.bestIndiv.getFit());
         else
