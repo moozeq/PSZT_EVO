@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by Ted on 06.01.2018.
+/*
+Class Indiv represents individual in population
  */
 public class Indiv {
     private ArrayList<Double> coords = new ArrayList<>();
@@ -33,19 +33,18 @@ public class Indiv {
     }
 
     Indiv(Indiv indiv, boolean isParent) {
-        if (!isParent) {
+        if (!isParent) { //simply copy individual
             coords = new ArrayList<>(indiv.coords);
             sigmas = new ArrayList<>(indiv.sigmas);
             fit = indiv.getFit();
-        }
-        else {
+        } else { //reproduce individual from parent
             Random random = new Random();
             int dim = indiv.getDim();
-            double t = 1 / Math.sqrt(2*dim);
-            double t1 = 1 / Math.sqrt(2*Math.sqrt(dim));
+            double t = 1 / Math.sqrt(2 * dim);
+            double t1 = 1 / Math.sqrt(2 * Math.sqrt(dim));
             double ksi = random.nextGaussian();
             for (int i = 0; i < dim; ++i) {
-                double sigma = indiv.getSigma(i) * ( 1 + t1 * ksi) * (1 + t * random.nextGaussian());
+                double sigma = indiv.getSigma(i) * (1 + t1 * ksi) * (1 + t * random.nextGaussian());
                 double x = indiv.getX(i) + sigma * random.nextGaussian();
                 sigmas.add(sigma);
                 coords.add(x);
@@ -53,23 +52,7 @@ public class Indiv {
             fit = fitFun();
         }
     }
-    /*
-    Function to get fitting value
-     */
-    private double fitFun() {
-        double fitCos = 1.0;
-        double fitE = 0.0;
-        for (int i = 0; i < coords.size(); ++i) {
-            double x = getX(i);
-            fitCos *= Math.cos(x);
-            fitE += x*x / (double)(i+1);
-        }
-        return fitCos - 0.01*fitE;
-        //return (fitCos - 0.01*fitE + 10) * 2;
-    }
-    public double getX(int index) {
-        return coords.get(index);
-    }
+    public double getX(int index) { return coords.get(index); }
     public double getSigma(int index) {
         return sigmas.get(index);
     }
@@ -95,5 +78,19 @@ public class Indiv {
             chance += 1.0 / (1.0 + Math.pow(pParentM.getX(i) - pParentF.getX(i), 2) / c);
         chance /= dim;
         return chance;
+    }
+    /*
+    Function to get fitting value
+     */
+    private double fitFun() {
+        double fitCos = 1.0;
+        double fitE = 0.0;
+        for (int i = 0; i < coords.size(); ++i) {
+            double x = getX(i);
+            fitCos *= Math.cos(x);
+            fitE += x*x / (double)(i+1);
+        }
+        return fitCos - 0.01*fitE;
+        //return (fitCos - 0.01*fitE + 10) * 2;
     }
 }

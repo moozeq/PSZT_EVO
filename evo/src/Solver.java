@@ -38,9 +38,11 @@ class Solver {
             population = ranking(population, rPopulation);
             population.set(mi - 1, prevBestIndiv); //elitism
             prevBestIndiv = bestIndiv;
+            sPopulation.bestInGen.add(bestIndiv);
         }
         sPopulation.population = population;
         sPopulation.bestIndiv = bestIndiv;
+        sPopulation.bestInGen.add(bestIndiv);
         return sPopulation;
     }
     /*
@@ -60,9 +62,11 @@ class Solver {
             population = ranking(population, mPopulation);
             population.set(mi - 1, prevBestIndiv); //elitism
             prevBestIndiv = bestIndiv;
+            sPopulation.bestInGen.add(bestIndiv);
         }
         sPopulation.population = population;
         sPopulation.bestIndiv = bestIndiv;
+        sPopulation.bestInGen.add(bestIndiv);
         return sPopulation;
     }
 

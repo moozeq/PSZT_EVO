@@ -1,5 +1,6 @@
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -14,6 +15,9 @@ public class Controller {
     @FXML
     private
     ScatterChart chart;
+    @FXML
+    private
+    LineChart fitChart;
 
     @FXML
     private
@@ -58,10 +62,13 @@ public class Controller {
         int mi = Integer.parseInt(miField.getText());
         int n = Integer.parseInt(nField.getText());
         double sigmaRange = Double.parseDouble(sigmaField.getText());
-        sPopulation = population = new Population(mi, n, min, max, sigmaRange);
+        population = new Population(mi, n, min, max, sigmaRange);
+        sPopulation = new Population(population);
         x1Field.setText("0");
         x2Field.setText("1");
         showChart();
+        if (fitChart.getData().size() > 0)
+            fitChart.getData().clear();
 
         dataGenerated.setVisible(true);
         PauseTransition visiblePause = new PauseTransition(Duration.seconds(1));
@@ -80,6 +87,7 @@ public class Controller {
         long totalTime = endTime - startTime;
         showText(totalTime, 0);
         showChart();
+        showFitChart();
     }
 
     public void solveEP() {
@@ -91,6 +99,7 @@ public class Controller {
         long totalTime = endTime - startTime;
         showText(totalTime, 1);
         showChart();
+        showFitChart();
     }
 
     private void showText(long totalTime, int type) {
@@ -106,9 +115,17 @@ public class Controller {
         int x1 = Integer.parseInt(x1Field.getText());
         int x2 = Integer.parseInt(x2Field.getText());
         XYChart.Series series = new XYChart.Series();
-        series.setName("Individual");
         for (Indiv aPopulation : sPopulation.population)
             series.getData().add(new XYChart.Data(aPopulation.getX(x1), aPopulation.getX(x2)));
         chart.getData().add(series);
+    }
+
+    public void showFitChart() {
+        if (fitChart.getData().size() > 0)
+            fitChart.getData().clear();
+        XYChart.Series series = new XYChart.Series();
+        for (int i = 0; i < sPopulation.bestInGen.size(); ++i)
+            series.getData().add(new XYChart.Data(i, sPopulation.bestInGen.get(i).getFit()));
+        fitChart.getData().add(series);
     }
 }

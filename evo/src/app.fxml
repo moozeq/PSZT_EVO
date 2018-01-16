@@ -8,8 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="414.0" prefWidth="781.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller">
-  <ScatterChart fx:id="chart" layoutY="7.0" style="">
+<AnchorPane prefHeight="710.0" prefWidth="781.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Controller">
+  <ScatterChart fx:id="chart" layoutY="7.0" legendVisible="false" style="">
     <xAxis>
       <NumberAxis autoRanging="false" lowerBound="-20.0" side="BOTTOM" tickLabelGap="1.0" tickUnit="2.0" upperBound="20.0" />
     </xAxis>
@@ -41,4 +41,12 @@
   <Label layoutX="671.0" layoutY="218.0" text="min fitness" />
   <Label layoutX="569.0" layoutY="359.0" text="x1" />
   <Label layoutX="569.0" layoutY="384.0" text="x2" />
+  <LineChart fx:id="fitChart" createSymbols="false" layoutX="16.0" layoutY="403.0" legendVisible="false" prefHeight="293.0" prefWidth="751.0">
+    <xAxis>
+      <NumberAxis autoRanging="true" minorTickCount="5" minorTickVisible="false" side="BOTTOM" tickLabelGap="1.0" tickMarkVisible="false" tickUnit="1.0" upperBound="300.0" />
+    </xAxis>
+    <yAxis>
+      <NumberAxis autoRanging="false" lowerBound="-2.0" side="LEFT" tickLabelGap="1.0" tickLength="8.0" tickUnit="1.0" upperBound="2.0" />
+    </yAxis>
+  </LineChart>
 </AnchorPane>
