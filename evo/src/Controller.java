@@ -8,9 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-/**
- * Created by Ted on 11.01.2018.
- */
+
 public class Controller {
     @FXML
     private
