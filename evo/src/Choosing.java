@@ -2,11 +2,24 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+/*
+@brief Class which represents algorithms which choose individuals from population P+R
+    choose - default method
+    chooseRand - choose % bests and rest randomly
+    miBests - choose mi bests
+    ranking - choose bests but w/ possibility of not
+ */
 public class Choosing {
+    /*
+    @brief default choosing method, called in algorithms
+     */
     public static ArrayList<Individual> choose(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation) {
         return ranking(bPopulation, rPopulation);
     }
 
+    /*
+    @brief choose percentage of bests and rest randomly
+     */
     public static ArrayList<Individual> chooseRand(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation, int percentage) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();
@@ -26,6 +39,9 @@ public class Choosing {
         return newPopulation;
     }
 
+    /*
+    @brief choose whole mi-population of bests
+     */
     private static ArrayList<Individual> miBests(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();
@@ -40,6 +56,9 @@ public class Choosing {
         return newPopulation;
     }
 
+    /*
+    @brief choose mi-bests but w/ possibility (inversely proportional to place in ranking) of not choosing
+     */
     private static ArrayList<Individual> ranking(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();

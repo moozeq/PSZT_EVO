@@ -1,13 +1,22 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+@brief Class which provides static algorithms solving problems by (mi + lambda) or evolutionary programming
+@param population - current population
+@param generation - which generation currently
+@param bestIndiv - best individual in current population
+@param prevBestIndiv - best individual in previous population - provides elitism
+ */
 class Solver {
     private static ArrayList<Individual> population;
     public static int generation = 0;
     public static Individual bestIndiv;
     private static Individual prevBestIndiv;
+
     /*
-    Solve by (mi + lambda) algorithm, c = length between local max-s
+    @brief solving passed population by (mi + lambda) algorithm
+    @param c - length between local max-s
      */
     public static Population solveMPL(Population pop, int lambda, double c, int maxRounds, double minFit) {
         Population sPopulation = new Popul().newInstance(pop);
@@ -42,7 +51,7 @@ class Solver {
         return sPopulation;
     }
     /*
-    Solve by evo programming algorithm
+    @brief solving passed population by evolutionary programming algorithm
      */
     public static Population solveEP(Population pop, int maxRounds, double minFit) {
         Population sPopulation = new Popul().newInstance(pop);

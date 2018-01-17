@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/*
+@brief Class Popul represents  population, must implements Population interface
+    @param population - structure containing individuals in current population
+    @param bestsInGen - structure containing best individual from every generation
+    @param bestIndiv - best individual in current population
+ */
 public class Popul implements Population {
     private ArrayList<Individual> population;
     private ArrayList<Individual> bestsInGen;
@@ -35,8 +41,6 @@ public class Popul implements Population {
     public Individual getBestIndiv() {return bestIndiv;}
     @Override
     public void setPopulation(ArrayList<Individual> population) {this.population = population;}
-    @Override
-    public void setBestsInGen(ArrayList<Individual> bestsInGen) {this.bestsInGen = bestsInGen;}
     @Override
     public void setBestIndiv(Individual bestIndiv) {this.bestIndiv = bestIndiv;}
 }

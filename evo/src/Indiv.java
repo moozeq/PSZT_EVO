@@ -2,7 +2,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /*
-Class Indiv represents individual in population
+@brief Class Indiv represents individual in population, must implements Individual interface
+    @param coords - structure containing coordinates in every dimension of individual
+    @param sigmas - structure containing simgas to every dimension of individual
+    @param fit - variable which indicate fitness of individual
  */
 public class Indiv implements Individual {
     private ArrayList<Double> coords = new ArrayList<>();
@@ -17,6 +20,7 @@ public class Indiv implements Individual {
         fit = Fitness.fitFun(this);
         return this;
     }
+
     @Override
     public Individual newInstance(Individual parentM, Individual parentF) {
         Random random = new Random();
@@ -35,6 +39,7 @@ public class Indiv implements Individual {
         fit = Fitness.fitFun(this);
         return this;
     }
+
     @Override
     public Individual newInstance(Individual individual, boolean isParent) {
         if (!isParent) { //simply copy individual
@@ -61,13 +66,17 @@ public class Indiv implements Individual {
     public double getSigma(int index) { return sigmas.get(index); }
     public ArrayList<Double> getCoords() { return coords; }
     public ArrayList<Double> getSigmas() { return sigmas; }
+
+    /*
+    @brief may be used in log to file
+     */
+    @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (Double x : coords)
             str.append(x).append(" ");
         return str.toString();
     }
-
     @Override
     public double getX(int index) { return coords.get(index); }
     @Override
