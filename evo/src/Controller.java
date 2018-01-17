@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -10,46 +11,21 @@ import javafx.util.Duration;
 
 
 public class Controller {
-    @FXML
-    private
-    ScatterChart chart;
-    @FXML
-    private
-    LineChart fitChart;
+    @FXML private ScatterChart chart;
+    @FXML private LineChart fitChart;
 
-    @FXML
-    private
-    TextField miField;
-    @FXML
-    private
-    TextField nField;
-    @FXML
-    private
-    TextField sigmaField;
-    @FXML
-    private
-    TextField lambdaField;
-    @FXML
-    private
-    TextField cField;
-    @FXML
-    private
-    TextField maxRoundsField;
-    @FXML
-    private
-    TextField minFitnessField;
-    @FXML
-    private
-    TextField x1Field;
-    @FXML
-    private
-    TextField x2Field;
-    @FXML
-    private
-    TextArea textArea;
-    @FXML
-    private
-    Label dataGenerated;
+    @FXML private TextField miField;
+    @FXML private TextField nField;
+    @FXML private TextField sigmaField;
+    @FXML private TextField lambdaField;
+    @FXML private TextField cField;
+    @FXML private TextField maxRoundsField;
+    @FXML private TextField minFitnessField;
+    @FXML private TextField x1Field;
+    @FXML private TextField x2Field;
+    @FXML private TextArea textArea;
+    @FXML private Label dataGenerated;
+    @FXML private CheckBox showChart;
 
     private Population population;
     private Population sPopulation;
@@ -64,7 +40,9 @@ public class Controller {
         sPopulation = new Population(population);
         x1Field.setText("0");
         x2Field.setText("1");
-        showChart();
+
+        if (showChart.isSelected())
+            showChart();
         if (fitChart.getData().size() > 0)
             fitChart.getData().clear();
 
@@ -84,7 +62,8 @@ public class Controller {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         showText(totalTime, 0);
-        showChart();
+        if (showChart.isSelected())
+            showChart();
         showFitChart();
     }
 
@@ -96,7 +75,8 @@ public class Controller {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         showText(totalTime, 1);
-        showChart();
+        if (showChart.isSelected())
+            showChart();
         showFitChart();
     }
 

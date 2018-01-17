@@ -52,6 +52,10 @@ public class Indiv {
             fit = Fitness.fitFun(this);
         }
     }
+    public void multiplySigmas(double multiplier) {
+        for (Double sigma : sigmas)
+            sigma *= multiplier;
+    }
     public double getX(int index) { return coords.get(index); }
     public double getSigma(int index) { return sigmas.get(index); }
     public int getSize() { return coords.size(); }

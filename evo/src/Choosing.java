@@ -7,6 +7,25 @@ public class Choosing {
         return ranking(bPopulation, rPopulation);
     }
 
+    public static ArrayList<Indiv> chooseRand(ArrayList<Indiv> bPopulation, ArrayList<Indiv> rPopulation, int percentage) {
+        int lambda = rPopulation.size();
+        int mi = bPopulation.size();
+        rPopulation.addAll(bPopulation);
+        rPopulation.sort(Comparator.comparing(Indiv::getFit));
+
+        Random random = new Random();
+        ArrayList<Indiv> newPopulation = new ArrayList(mi);
+        int bestsNum = percentage * mi / 100;
+        int i = 0;
+        while (i++ < bestsNum)
+            newPopulation.add(rPopulation.get(mi + lambda - i - 1));
+        while (i++ < mi)
+            newPopulation.add(rPopulation.get(random.nextInt(mi + lambda)));
+
+        Solver.bestIndiv = newPopulation.get(0);
+        return newPopulation;
+    }
+
     private static ArrayList<Indiv> miBests(ArrayList<Indiv> bPopulation, ArrayList<Indiv> rPopulation) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();
@@ -15,7 +34,7 @@ public class Choosing {
 
         ArrayList<Indiv> newPopulation = new ArrayList(mi);
         for (int i = 0; i < mi; ++i)
-            newPopulation.add(bPopulation.get(mi + lambda - i - 1));
+            newPopulation.add(rPopulation.get(mi + lambda - i - 1));
 
         Solver.bestIndiv = newPopulation.get(0);
         return newPopulation;
