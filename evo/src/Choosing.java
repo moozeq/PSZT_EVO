@@ -3,18 +3,18 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Choosing {
-    public static ArrayList<Indiv> choose(ArrayList<Indiv> bPopulation, ArrayList<Indiv> rPopulation) {
+    public static ArrayList<Individual> choose(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation) {
         return ranking(bPopulation, rPopulation);
     }
 
-    public static ArrayList<Indiv> chooseRand(ArrayList<Indiv> bPopulation, ArrayList<Indiv> rPopulation, int percentage) {
+    public static ArrayList<Individual> chooseRand(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation, int percentage) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();
         rPopulation.addAll(bPopulation);
-        rPopulation.sort(Comparator.comparing(Indiv::getFit));
+        rPopulation.sort(Comparator.comparing(Individual::getFit));
 
         Random random = new Random();
-        ArrayList<Indiv> newPopulation = new ArrayList(mi);
+        ArrayList<Individual> newPopulation = new ArrayList(mi);
         int bestsNum = percentage * mi / 100;
         int i = 0;
         while (i++ < bestsNum)
@@ -26,13 +26,13 @@ public class Choosing {
         return newPopulation;
     }
 
-    private static ArrayList<Indiv> miBests(ArrayList<Indiv> bPopulation, ArrayList<Indiv> rPopulation) {
+    private static ArrayList<Individual> miBests(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();
         rPopulation.addAll(bPopulation);
-        rPopulation.sort(Comparator.comparing(Indiv::getFit));
+        rPopulation.sort(Comparator.comparing(Individual::getFit));
 
-        ArrayList<Indiv> newPopulation = new ArrayList(mi);
+        ArrayList<Individual> newPopulation = new ArrayList(mi);
         for (int i = 0; i < mi; ++i)
             newPopulation.add(rPopulation.get(mi + lambda - i - 1));
 
@@ -40,15 +40,15 @@ public class Choosing {
         return newPopulation;
     }
 
-    private static ArrayList<Indiv> ranking(ArrayList<Indiv> bPopulation, ArrayList<Indiv> rPopulation) {
+    private static ArrayList<Individual> ranking(ArrayList<Individual> bPopulation, ArrayList<Individual> rPopulation) {
         int lambda = rPopulation.size();
         int mi = bPopulation.size();
         double slice = 1.0 / (mi + lambda); //1 slice of circle
         rPopulation.addAll(bPopulation);
-        rPopulation.sort(Comparator.comparing(Indiv::getFit));
+        rPopulation.sort(Comparator.comparing(Individual::getFit));
 
         Random random = new Random();
-        ArrayList<Indiv> newPopulation = new ArrayList(mi);
+        ArrayList<Individual> newPopulation = new ArrayList(mi);
         do {
             for (int i = 0, slicesNum = 1; i < (mi + lambda) && newPopulation.size() != mi; ++i, ++slicesNum) {
                 if (slice * slicesNum < random.nextDouble())
