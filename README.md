@@ -29,9 +29,15 @@ java --module-path=/path/to/javafx/javafx-sdk-15.0.1/lib --add-modules=javafx.co
         <p>
             <img src="ep_10rounds_30dim.png">
         </p>
-        <h4>Solving equation with (μ+λ) algorithm (10000 individuals, 2 dimension space, 6 rounds)</h4>
+        <h4>Solving equation with (μ+λ) algorithm (10000 individuals, 2 dimension space, 3-6-9 rounds)</h4>
+        <p>
+            <img src="mpl_3rounds_2dim.png">
+        </p>
         <p>
             <img src="mpl_6rounds_2dim.png">
+        </p>
+        <p>
+            <img src="mpl_9rounds_2dim.png">
         </p>
     </div>
 </body>
