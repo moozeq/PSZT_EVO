@@ -19,26 +19,30 @@ java --module-path=/path/to/javafx/javafx-sdk-15.0.1/lib --add-modules=javafx.co
     <div>
         <h4>Generating data</h4>
         <p>
-            <img src="new_data.png">
+            <img src="demo/new_data.png">
         </p>
         <h4>Solving equation with (μ+λ) algorithm (3000 individuals, 30 dimension space, 10 rounds)</h4>
         <p>
-            <img src="mpl_10rounds_30dim.png">
+            <img src="demo/mpl_10rounds_30dim.png">
         </p>
         <h4>Solving equation with EP algorithm (3000 individuals, 30 dimension space, 10 rounds)</h4>
         <p>
-            <img src="ep_10rounds_30dim.png">
+            <img src="demo/ep_10rounds_30dim.png">
         </p>
         <h4>Solving equation with (μ+λ) algorithm (10000 individuals, 2 dimension space, 3-6-9 rounds)</h4>
         <p>
-            <img src="mpl_3rounds_2dim.png">
+            <img src="demo/mpl_3rounds_2dim.png">
         </p>
         <p>
-            <img src="mpl_6rounds_2dim.png">
+            <img src="demo/mpl_6rounds_2dim.png">
         </p>
         <p>
-            <img src="mpl_9rounds_2dim.png">
+            <img src="demo/mpl_9rounds_2dim.png">
         </p>
     </div>
 </body>
 </html>
+
+# Report
+
+Report from project is available [here](docs/Report_PL.pdf) (in Polish).
